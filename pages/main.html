@@ -1,2 +1,18 @@
-THIS IS MAIN 
-<p>{{message}}</p>
+<table class="table table-striped">
+    <thead>
+        <th>NAME</th>
+        <th>LAST NAME</th>
+        <th>SALARY</th>
+        <th>ACTION</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat ="user in users">
+            <td>{{user.name}}</td>
+            <td>{{user.lastname}}</td>
+            <td>{{user.salary | currency:'RM'}}</td>
+            <td><a class="btn btn-success" href="#!/user/{{user.id}}">EDIT</a></td>
+        </tr>
+
+    </tbody>
+
+</table>
