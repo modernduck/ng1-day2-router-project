@@ -5,6 +5,10 @@
             templateUrl:"pages/main.html",
             controller:"MainController"
         })
+        .when('/create', {
+            templateUrl:"pages/create.html",
+            controller:"UserController"
+        })
         .when("/user/:id", {
             templateUrl:"pages/invoice.html",
             controller:"UserController"
@@ -13,17 +17,28 @@
     })
     .controller("MainController", ['$scope', 'userProvider', function($scope, userProvider){
         //recommended format
-
+        userProvider.load();
         $scope.users = userProvider.getUsers();
     }])
-    .controller("UserController", function($scope, $routeParams, userProvider){
+    .controller("UserController", function($scope, $routeParams, userProvider, $location){
         //user  = myservice.getData($routeParams.id)
         //userProvider.getUserById($routeParams.id)
         //$scope.user = {id:1, name:"sompop", lastname:"kulapalanont", salary:50000, picture:"http://placehold.it/100x100"};
         $scope.user = userProvider.getUserById($routeParams.id);
      
+        //happen when click sve button
         $scope.save = function(){
-            userProvider.updateUser($routeParams.id, $scope.user.name, $scope.user.lastname, $scope.user.salary, $scope.user.picture)
+            userProvider.updateUserById($routeParams.id, $scope.user.name, $scope.user.lastname, $scope.user.salary, $scope.user.picture)
+            userProvider.save();
+            $location.path('/');
+        }
+    }).directive('userForm', function(){
+        return {
+            scope:{
+                user:"=",
+                save:"=onSave"
+            },
+            templateUrl : "widgets/user-form.html"
         }
     })
     

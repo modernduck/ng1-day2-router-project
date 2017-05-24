@@ -1,19 +1,2 @@
-<a href="#!/">BACK</a>
-<div class="row">
-    <div class="col-md-1">
-        <img src="{{user.picture}}" style="max-width:100%" /><br/>
-        <input ng-model="user.picture"  placeholder="name"/> 
-    </div>
-    <div class="col-md-11">
-        <div>
-            <input ng-model="user.name"  placeholder="name"/> <input ng-model="user.lastname" placeholder="lastname" />
-        </div>
-        <div>
-            <input ng-model="user.salary"  placeholder="name" type="number"/> 
-        </div>
-        <div>
-            
-            <button class="btn btn-primary" ng-click="save()">SAVE</button>
-        </div>
-    </div> 
-</div>
+<h2>Update</h2>
+<user-form user="user" on-save="save"></user-form>
