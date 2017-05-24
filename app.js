@@ -21,17 +21,26 @@
         $scope.users = userProvider.getUsers();
     }])
     .controller("UserController", function($scope, $routeParams, userProvider, $location){
-        //user  = myservice.getData($routeParams.id)
-        //userProvider.getUserById($routeParams.id)
+        userProvider.load();
         //$scope.user = {id:1, name:"sompop", lastname:"kulapalanont", salary:50000, picture:"http://placehold.it/100x100"};
-        $scope.user = userProvider.getUserById($routeParams.id);
-     
-        //happen when click sve button
-        $scope.save = function(){
-            userProvider.updateUserById($routeParams.id, $scope.user.name, $scope.user.lastname, $scope.user.salary, $scope.user.picture)
-            userProvider.save();
-            $location.path('/');
+        if($routeParams.id){
+            //update mode
+            $scope.user = userProvider.getUserById($routeParams.id);
+            //happen when click sve button
+            $scope.save = function(){
+                userProvider.updateUserById($routeParams.id, $scope.user.name, $scope.user.lastname, $scope.user.salary, $scope.user.picture)
+                userProvider.save();
+                $location.path('/');
+            }
+        }else{
+            $scope.user  = {};
+            $scope.save = function(){
+                userProvider.createUser($scope.user.name, $scope.user.lastname, $scope.user.salary, $scope.user.picture)
+                userProvider.save();
+                $location.path('/');
+            }
         }
+        
     }).directive('userForm', function(){
         return {
             scope:{

@@ -1,3 +1,9 @@
+<a href="#!/create">Create</a>
+
+<!--<input type="text" ng-model="q" class="form-control" />-->
+<input type="text" ng-model="q.name" placeholder="name only" class="form-control" />
+
+
 <table class="table table-striped">
     <thead>
         <th>NAME</th>
@@ -6,7 +12,7 @@
         <th>ACTION</th>
     </thead>
     <tbody>
-        <tr ng-repeat ="user in users">
+        <tr ng-repeat ="user in users| filter : q">
             <td>{{user.name}}</td>
             <td>{{user.lastname}}</td>
             <td>{{user.salary | currency:'RM'}}</td>
