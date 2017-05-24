@@ -1,4 +1,4 @@
-  angular.module('myApp', ['ngRoute'])
+  angular.module('myApp', ['ngRoute', 'myFactory'])
     .config( function($routeProvider){
         //going to config which route to go where
         $routeProvider.when("/", {
@@ -11,24 +11,19 @@
         })
 
     })
-    .controller("MainController", function($scope){
-        $scope.users = [
-            {id:1, name:"sompop", lastname:"kulapalanont", salary:50000, picture:"http://placehold.it/100x100"},
-            {id:2, name:"pichanok", lastname:"noobparn", salary:30000, picture:"http://placehold.it/100x100"},
-            {id:3, name:"unnandunn", lastname:"gucheng", salary:50000, picture:"http://placehold.it/100x100"},
-            {id:4, name:"lermisme", lastname:"marketting", salary:35000, picture:"http://placehold.it/100x100"},
+    .controller("MainController", ['$scope', 'userProvider', function($scope, userProvider){
+        //recommended format
 
-        ]
-    })
-    .controller("UserController", function($scope, $routeParams){
-      
-
+        $scope.users = userProvider.getUsers();
+    }])
+    .controller("UserController", function($scope, $routeParams, userProvider){
         //user  = myservice.getData($routeParams.id)
-        $scope.user = {id:1, name:"sompop", lastname:"kulapalanont", salary:50000, picture:"http://placehold.it/100x100"};
-        if($routeParams.id  == 1){
-            $scope.data = "VIP USER"
-        }else
-            $scope.data = "NORMAL "
-
+        //userProvider.getUserById($routeParams.id)
+        //$scope.user = {id:1, name:"sompop", lastname:"kulapalanont", salary:50000, picture:"http://placehold.it/100x100"};
+        $scope.user = userProvider.getUserById($routeParams.id);
+     
+        $scope.save = function(){
+            userProvider.updateUser($routeParams.id, $scope.user.name, $scope.user.lastname, $scope.user.salary, $scope.user.picture)
+        }
     })
     

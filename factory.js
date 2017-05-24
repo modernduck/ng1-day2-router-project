@@ -1,4 +1,4 @@
-angular.module("myFactory")
+angular.module("myFactory", [])
     .factory('userProvider', function(){
         var users = [{id:1, name:"sompop", lastname:"kulapalanont", salary:50000, picture:"http://placehold.it/100x100"},
             {id:2, name:"pichanok", lastname:"noobparn", salary:30000, picture:"http://placehold.it/100x100"},
@@ -45,6 +45,12 @@ angular.module("myFactory")
                     users.picture = picture;
 
                 }
+            },
+            deleteUserById : id => {
+                var index = users.findIndex( item => {
+                  return   item.id == id;
+                })
+                users.splice(index, 1);
             }
             
         }
